@@ -1,0 +1,49 @@
+{
+  "类型": "边缘名册",
+  "批次编号": "名册-demo",
+  "前置": {
+    "入轨": [
+      { "开关键": "checkout.new_tax", "版本号": 3, "版本键": "checkout.new_tax@3", "载荷": { "enabled": true } },
+      { "开关键": "rm.edge", "版本号": 1, "版本键": "rm.edge@1", "载荷": { "enabled": true } }
+    ],
+    "分桶": [
+      { "桶键": "checkout.new_tax-gray10", "开关键": "checkout.new_tax", "桶类型": "名单", "规则": {} },
+      { "桶键": "rm.edge-gray5", "开关键": "rm.edge", "桶类型": "名单", "规则": {} }
+    ],
+    "下发": [
+      { "票号": "票-checkout.new_tax@3-gray10", "版本键": "checkout.new_tax@3", "桶键": "checkout.new_tax-gray10" },
+      { "票号": "票-rm.edge@1-gray5", "版本键": "rm.edge@1", "桶键": "rm.edge-gray5" }
+    ]
+  },
+  "名册组": [
+    {
+      "票号": "票-checkout.new_tax@3-gray10",
+      "策略": "全员",
+      "边缘": ["edge-a", "edge-b", "edge-c"],
+      "确认": [
+        { "边缘键": "edge-a", "所见版本键": "checkout.new_tax@3" },
+        { "边缘键": "edge-b", "所见版本键": "checkout.new_tax@3" }
+      ],
+      "放量策略": "全员"
+    },
+    {
+      "票号": "票-checkout.new_tax@3-gray10",
+      "策略": "多数",
+      "边缘": ["edge-a", "edge-b", "edge-c"],
+      "确认": [
+        { "边缘键": "edge-a", "所见版本键": "checkout.new_tax@3" },
+        { "边缘键": "edge-b", "所见版本键": "checkout.new_tax@3" }
+      ],
+      "放量策略": "多数"
+    },
+    {
+      "票号": "票-rm.edge@1-gray5",
+      "策略": "全员",
+      "边缘": ["edge-a", "edge-b", "edge-c"],
+      "确认": [
+        { "边缘键": "edge-a", "所见版本键": "rm.edge@1" }
+      ],
+      "放量策略": "全员"
+    }
+  ]
+}

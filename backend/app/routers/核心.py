@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
 from app.db import 夹具目录, 连接
-from app.services import 入轨, 分桶, 下发, 回读, 命运, 贯验, 目录
+from app.services import 入轨, 分桶, 下发, 回读, 命运, 贯验, 目录, 边缘门
 
 路由 = APIRouter(prefix="/api")
 
@@ -45,6 +45,21 @@ class 回滚请求(BaseModel):
 class 失效请求(BaseModel):
     版本键: str
     说明: str = ""
+
+
+class 名册请求(BaseModel):
+    票号: str
+    边缘: list = Field(default_factory=list)
+
+
+class 策略请求(BaseModel):
+    票号: str
+    策略: str = "全员"
+
+
+class 放量请求(BaseModel):
+    票号: str
+    策略: str = ""
 
 
 @路由.get("/健康")
@@ -171,6 +186,26 @@ def 列空桩():
         conn.close()
 
 
+@路由.get("/边缘名册")
+def 列边缘名册(票号: str = ""):
+    return 边缘门.列名册(票号)
+
+
+@路由.get("/放量门")
+def 列放量门():
+    return 边缘门.列放量门()
+
+
+@路由.get("/门槛核证")
+def 列门槛核证(票号: str = ""):
+    return 边缘门.列核证(票号)
+
+
+@路由.get("/门槛视图")
+def 单票门槛(票号: str):
+    return 边缘门.票门槛视图(票号)
+
+
 @路由.post("/入轨")
 def 做入轨(体: 入轨请求):
     return 入轨.入一批(体.model_dump())
@@ -201,6 +236,21 @@ def 做失效(体: 失效请求):
     return 命运.失效版本(体.model_dump())
 
 
+@路由.post("/边缘名册")
+def 写边缘名册(体: 名册请求):
+    return 边缘门.写名册(体.model_dump())
+
+
+@路由.post("/门槛策略")
+def 写门槛策略(体: 策略请求):
+    return 边缘门.写策略(体.model_dump())
+
+
+@路由.post("/放量")
+def 做放量(体: 放量请求):
+    return 边缘门.试放量(体.model_dump( exclude_unset=True))
+
+
 @路由.post("/装载/夹具")
 def 装夹具(名: str = "入轨样例"):
     路径 = 夹具目录 / f"{名}.json"
@@ -219,6 +269,8 @@ def 装夹具(名: str = "入轨样例"):
         return 回读.装回读夹具(体)
     if 类型 == "回滚":
         return 命运.回滚票(体)
+    if 类型 == "边缘名册":
+        return 边缘门.装名册夹具(体)
     raise HTTPException(400, f"未知夹具类型:{类型}")
 
 

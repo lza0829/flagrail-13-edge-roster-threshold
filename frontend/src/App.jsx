@@ -5,6 +5,7 @@ import 开关轨 from "./pages/开关轨.jsx";
 import 分桶规 from "./pages/分桶规.jsx";
 import 下发票 from "./pages/下发票.jsx";
 import 回读台 from "./pages/回读台.jsx";
+import 边缘门 from "./pages/边缘门.jsx";
 import 命运账 from "./pages/命运账.jsx";
 import 轨贯验 from "./pages/轨贯验.jsx";
 import 站规 from "./pages/站规.jsx";
@@ -15,6 +16,7 @@ const 主链 = [
   ["/分桶规", "分桶规"],
   ["/下发票", "下发票"],
   ["/回读台", "回读台"],
+  ["/边缘门", "边缘门"],
   ["/命运账", "命运账"],
   ["/轨贯验", "轨贯验"],
 ];
@@ -51,6 +53,7 @@ export default function App() {
             <Route path="/分桶规" element={<分桶规 />} />
             <Route path="/下发票" element={<下发票 />} />
             <Route path="/回读台" element={<回读台 />} />
+            <Route path="/边缘门" element={<边缘门 />} />
             <Route path="/命运账" element={<命运账 />} />
             <Route path="/轨贯验" element={<轨贯验 />} />
             <Route path="/站规" element={<站规 />} />

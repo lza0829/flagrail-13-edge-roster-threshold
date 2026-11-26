@@ -15,6 +15,11 @@ def 总览() -> dict:
             "回读证": c("SELECT COUNT(*) FROM 回读证"),
             "确认回读": c("SELECT COUNT(*) FROM 回读证 WHERE 结果='确认'"),
             "命运条": c("SELECT COUNT(*) FROM 命运账"),
+            "边缘名册票": c("SELECT COUNT(DISTINCT 票号) FROM 边缘名册"),
+            "放量门": c("SELECT COUNT(*) FROM 放量门"),
+            "已放量": c("SELECT COUNT(*) FROM 放量门 WHERE 状态='已放量'"),
+            "门槛核证": c("SELECT COUNT(*) FROM 门槛核证"),
+            "核证通过": c("SELECT COUNT(*) FROM 门槛核证 WHERE valid=1"),
             "最近贯验通过": bool(
                 (conn.execute(
                     "SELECT 是否通过 FROM 轨贯验 ORDER BY 编号 DESC LIMIT 1"

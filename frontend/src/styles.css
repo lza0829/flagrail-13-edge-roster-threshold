@@ -273,6 +273,14 @@ td code, .mono {
   margin: 0.5rem 0 1rem;
   background: rgba(255,255,255,0.45);
 }
+.卡 {
+  background: var(--块);
+  border: 1px solid var(--线弱);
+  border-left: 3px solid var(--信);
+  padding: 0.8rem 0.95rem;
+  margin: 0.6rem 0 1rem;
+}
+.卡 .述 { margin: 0.35rem 0 0; font-size: 0.84rem; word-break: break-all }
 .提示条 {
   background: var(--信底);
   border-left: 3px solid var(--信);
@@ -293,6 +301,7 @@ td code, .mono {
 .徽章.通 { background: var(--通底); color: var(--通) }
 .徽章.败 { background: var(--败底); color: var(--败) }
 .徽章.信 { background: var(--信底); color: var(--信) }
+.徽章.次 { background: rgba(11,39,64,0.08); color: var(--淡) }
 
 @keyframes brand-in {
   from { opacity: 0; letter-spacing: 0.4em; transform: translateY(8px) }
